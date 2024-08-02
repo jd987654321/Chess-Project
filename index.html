@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .test-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 200px; /* Set the desired width */
+            height: 200px; /* Set the desired height */
+        }
+
+        .inside.first {
+            width: 50%;
+            height: 50%;
+        }
+        .inside.second {
+            position: absolute;
+            width: 30px; /* Adjust the size as needed */
+            height: 30px; /* Adjust the size as needed */
+            border-radius: 50%;
+            background-color: red; /* Change to desired color */
+        }
+
+    </style>
+    <script defer src="diff.js"></script>
+</head>
+<body>
+    
+    <!-- <canvas id="canvas" width="480" height="480"></canvas> -->
+    <div id="container"></div>
+</body>
+</html>

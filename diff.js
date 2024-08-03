@@ -10,9 +10,20 @@
  * 
  * ok so when i click a piece, it will check all possible spots, mark them
  * with a tag, then if i click a place with a tag it will move it there
+ * 
+ * movement system, when selecting a piece, change global state to position, 
+ * 
+ * possible things to happen
+ * 
+ *  -> user selects a square with a grey dot
+ *  -> user selects a sqaure without a grey dot, in which we remove all grey dots
+ *     like we are doing already, and then either change state to that piece or
+ *     change state to empty
  */
-
+let pieceToMove = 'none'
+let pieceToMovePos = '00'
 let container = document.querySelector('#container')
+
 const knightMoves = [
     [1,2],[-1,-2],[-1,2],[1,-2],[2,1],[-2,-1],[-2,1],[2,-1]
 ]
@@ -24,12 +35,42 @@ const whitePieces = [
     'wp', 'wb', 'wkn', 'wr', 'wq', 'wk'
 ]
 
+const notationToPieceName = {
+    'bp': 'Black Pawn',
+    'bb': 'Black Bishop',
+    'bkn': 'Black Knight',
+    'br': 'Black Rook',
+    'bq': 'Black Queen',
+    'bk': 'Black King',
+    'wp': 'White Pawn',
+    'wb': 'White Bishop',
+    'wkn': 'White Knight',
+    'wr': 'White Rook',
+    'wq': 'White Queen',
+    'wk': 'White King'
+}
+
+const gridToChessNotation = {
+    '00': 'a8', '01': 'b8', '02': 'c8', '03': 'd8', '04': 'e8', '05': 'f8', '06': 'g8', '07': 'h8',
+    '10': 'a7', '11': 'b7', '12': 'c7', '13': 'd7', '14': 'e7', '15': 'f7', '16': 'g7', '17': 'h7',
+    '20': 'a6', '21': 'b6', '22': 'c6', '23': 'd6', '24': 'e6', '25': 'f6', '26': 'g6', '27': 'h6',
+    '30': 'a5', '31': 'b5', '32': 'c5', '33': 'd5', '34': 'e5', '35': 'f5', '36': 'g5', '37': 'h5',
+    '40': 'a4', '41': 'b4', '42': 'c4', '43': 'd4', '44': 'e4', '45': 'f4', '46': 'g4', '47': 'h4',
+    '50': 'a3', '51': 'b3', '52': 'c3', '53': 'd3', '54': 'e3', '55': 'f3', '56': 'g3', '57': 'h3',
+    '60': 'a2', '61': 'b2', '62': 'c2', '63': 'd2', '64': 'e2', '65': 'f2', '66': 'g2', '67': 'h2',
+    '70': 'a1', '71': 'b1', '72': 'c1', '73': 'd1', '74': 'e1', '75': 'f1', '76': 'g1', '77': 'h1'
+  }
+
+
 
 container.addEventListener('mouseover',function(event){
     container.classList.add('grey')
 })
 
-//document.addEventListener('keydown', clearAllImg)
+document.addEventListener('keydown', function(event){
+    console.log(board)
+})
+
 
 let board = [
     ['  ', 'bkn', '  ', 'bk', '  ', 'bb', 'bkn', 'br'],
@@ -197,7 +238,15 @@ function showMoves(piece, x, y){
             let tempX = x + knightMoves[p][0]
             let tempY = y + knightMoves[p][1]
             if(tempX >= 0 && tempX <= 7 && tempY >= 0 && tempY <= 7){
-                document.querySelector('.p'+(x+knightMoves[p][0])+''+(y+knightMoves[p][1])+'>div').classList.add('grey-dot')
+                //document.querySelector('.p'+tempX+''+tempY+'>div').classList.add('grey-dot')
+                let square = document.querySelector('.p'+tempX+''+tempY)
+                let dotDiv = square.querySelector('div')
+                
+                if((blackPieces.includes(piece) && blackPieces.includes(board[tempX][tempY])) || (whitePieces.includes(piece) && whitePieces.includes(board[tempX][tempY]))){
+                    
+                }else{
+                    dotDiv.classList.add('grey-dot')
+                }
             }
         }
     }
@@ -243,7 +292,6 @@ for(let i = 0 ; i < 8 ; i++){
             newSquare.append(newIMG)
             // console.log(board[i][j])
         }
-        
 
         newSquare.onmouseover = function(){
             newSquare.classList.add('lightgrey')
@@ -255,17 +303,39 @@ for(let i = 0 ; i < 8 ; i++){
         }
 
         newSquare.onclick = function(){
-            removeDots()
-            console.log(checkForPiece(newSquare))
+
+            console.log(newSquare.querySelector('div').classList.contains('grey-dot'))
+            console.log(newSquare.querySelector('div').classList)
+            console.log(pieceToMovePos)
             
-            if(newSquare.classList.contains('grey')){
+            if(newSquare.querySelector('div').classList.contains('grey-dot')){
+                let ii = parseInt(pieceToMovePos.substring(0,1))
+                let jj = parseInt(pieceToMovePos.substring(1,2))
+                let piece = board[ii][jj]
+
+                let oldSquare = document.querySelector('.p' + ii + '' + jj)
+                let image = oldSquare.querySelector('img')
+                oldSquare.removeChild(image)
+                newSquare.appendChild(image)
+                removeGrey()
+                removeDots()
+                board[ii][jj] = '  '
+                board[i][j] = piece
+            }else if(newSquare.classList.contains('grey')){
                 newSquare.classList.remove('grey')
+                removeDots()
             }else{
                 removeGrey()
+                removeDots()
                 newSquare.classList.add('grey')
+                console.log('should be')
                 showMoves(board[i][j], i, j)
             }
+            pieceToMove = board[i][j]
+            pieceToMovePos = '' + i + j
         }
+        
+        
 
         if((i % 2 === 0 && j % 2 === 0) || (i % 2 === 1 && j % 2 === 1)){
             newSquare.classList.add('green')

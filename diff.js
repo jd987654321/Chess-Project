@@ -90,6 +90,19 @@ let board = [
  *   num2 -> column -> x
  */
 
+function checkSide(piece, x, y){
+    let square = document.querySelector('.p'+x+''+y)
+    let dotDiv = square.querySelector('div')
+    if(checkForPiece(square)){
+        if(!(blackPieces.includes(piece) && blackPieces.includes(board[x][y])) && !(whitePieces.includes(piece) && whitePieces.includes(board[x][y]))){
+            dotDiv.classList.add('grey-dot')
+        }
+        return false
+    }
+    dotDiv.classList.add('grey-dot')
+    return true
+}
+
 function showMoves(piece, x, y){
 
     if(piece === 'wp'){
@@ -101,133 +114,80 @@ function showMoves(piece, x, y){
                 document.querySelector('.p'+(x-2)+''+y+'>div').classList.add('grey-dot')
             }
         }
+        if(x === 6){
+            for(let i = 0 ; i < 2 ; i++){
+
+            }
+        }
     }
 
     if(piece === 'br' || piece === 'wr' || piece === 'wq' || piece === 'bq'){
         let tempX = x
         let tempY = y
+        //down
         for(let i = x+1 ; i < 8 ; i++){
-            let square = document.querySelector('.p'+(i)+''+y)
-            let dotDiv = document.querySelector('.p'+(i)+''+y+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[i][y])) || (whitePieces.includes(piece) && whitePieces.includes(board[i][y]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, i, y)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
         }
+        //up
         for(let j = x-1 ; j >=0 ; j--){
-            let square = document.querySelector('.p'+(j)+''+y)
-            let dotDiv = document.querySelector('.p'+(j)+''+y+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[j][y])) || (whitePieces.includes(piece) && whitePieces.includes(board[j][y]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, j,y)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
         }
+        //right
         for(let k = y+1 ; k < 8 ; k++){
-            //document.querySelector('.p'+x+''+(k)+'>div').classList.add('grey-dot')
-            let square = document.querySelector('.p'+x+''+k)
-            let dotDiv = document.querySelector('.p'+x+''+k+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[x][k])) || (whitePieces.includes(piece) && whitePieces.includes(board[x][k]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, x,k)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
         }
+        //left
         for(let l = y-1 ; l >= 0; l--){
-            //document.querySelector('.p'+x+''+(l)+'>div').classList.add('grey-dot')
-            let square = document.querySelector('.p'+x+''+l)
-            let dotDiv = document.querySelector('.p'+x+''+l+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[x][l])) || (whitePieces.includes(piece) && whitePieces.includes(board[x][l]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, x,l)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
         }
     }
 
     if(piece === 'bb' || piece === 'wb'  || piece === 'wq' || piece === 'bq'){
         let tempX = x
         let tempY = y
+        //up left
         while(tempX-1 >= 0 && tempY-1 >= 0){
-            let square = document.querySelector('.p'+(tempX-1)+''+(tempY-1))
-            let dotDiv = document.querySelector('.p'+(tempX-1)+''+(tempY-1)+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[tempX-1][tempY-1])) || (whitePieces.includes(piece) && whitePieces.includes(board[tempX-1][tempY-1]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, tempX-1, tempY-1)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
             tempX -= 1
             tempY -= 1
         }
         tempX = x
         tempY = y
+        //down right
         while(tempX+1 <= 7 && tempY+1 <= 7){
-            let square = document.querySelector('.p'+(tempX+1)+''+(tempY+1))
-            let dotDiv = document.querySelector('.p'+(tempX+1)+''+(tempY+1)+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[tempX+1][tempY+1])) || (whitePieces.includes(piece) && whitePieces.includes(board[tempX+1][tempY+1]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, tempX+1, tempY+1)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
             tempX += 1
             tempY += 1
         }
         tempX = x
         tempY = y
+        //down left
         while(tempX+1 <= 7 && tempY-1 >= 0){
-            let square = document.querySelector('.p'+(tempX+1)+''+(tempY-1))
-            let dotDiv = document.querySelector('.p'+(tempX+1)+''+(tempY-1)+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[tempX+1][tempY-1])) || (whitePieces.includes(piece) && whitePieces.includes(board[tempX+1][tempY-1]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, tempX+1, tempY-1)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
             tempX += 1
             tempY -= 1
         }
         tempX = x
         tempY = y
+        //up right
         while(tempX-1 >= 0 && tempY+1 <= 7){
-            let square = document.querySelector('.p'+(tempX-1)+''+(tempY+1))
-            let dotDiv = document.querySelector('.p'+(tempX-1)+''+(tempY+1)+'>div')
-            if(checkForPiece(square)){
-                if((blackPieces.includes(piece) && blackPieces.includes(board[tempX-1][tempY+1])) || (whitePieces.includes(piece) && whitePieces.includes(board[tempX-1][tempY+1]))){
-                    
-                }else{
-                    dotDiv.classList.add('grey-dot')
-                }
+            if(!checkSide(piece, tempX-1, tempY+1)){
                 break
             }
-            dotDiv.classList.add('grey-dot')
             tempX -= 1
             tempY += 1
         }
@@ -238,7 +198,6 @@ function showMoves(piece, x, y){
             let tempX = x + knightMoves[p][0]
             let tempY = y + knightMoves[p][1]
             if(tempX >= 0 && tempX <= 7 && tempY >= 0 && tempY <= 7){
-                //document.querySelector('.p'+tempX+''+tempY+'>div').classList.add('grey-dot')
                 let square = document.querySelector('.p'+tempX+''+tempY)
                 let dotDiv = square.querySelector('div')
                 
@@ -304,14 +263,19 @@ for(let i = 0 ; i < 8 ; i++){
 
         newSquare.onclick = function(){
 
-            console.log(newSquare.querySelector('div').classList.contains('grey-dot'))
-            console.log(newSquare.querySelector('div').classList)
-            console.log(pieceToMovePos)
+            // console.log(newSquare.querySelector('div').classList.contains('grey-dot'))
+            // console.log(newSquare.querySelector('div').classList)
+            // console.log(pieceToMovePos)
             
             if(newSquare.querySelector('div').classList.contains('grey-dot')){
                 let ii = parseInt(pieceToMovePos.substring(0,1))
                 let jj = parseInt(pieceToMovePos.substring(1,2))
                 let piece = board[ii][jj]
+
+                //remove old image 
+                if(newSquare.querySelector('img') !== null){
+                    newSquare.removeChild(newSquare.querySelector('img'))
+                }
 
                 let oldSquare = document.querySelector('.p' + ii + '' + jj)
                 let image = oldSquare.querySelector('img')
@@ -328,7 +292,6 @@ for(let i = 0 ; i < 8 ; i++){
                 removeGrey()
                 removeDots()
                 newSquare.classList.add('grey')
-                console.log('should be')
                 showMoves(board[i][j], i, j)
             }
             pieceToMove = board[i][j]
@@ -347,7 +310,7 @@ for(let i = 0 ; i < 8 ; i++){
         //it renders properly
         newSquare.append(dotHolder)
         container.append(newSquare)
-        console.log(newSquare)
+        //console.log(newSquare)
     }
 }
 

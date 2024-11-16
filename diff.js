@@ -135,13 +135,38 @@ function checkThreats(color){
         pieces = blackPieces
     }
 
+    //while loop to check each direction
+    /**
+     * things to check
+     * -if piece is the same colored piece, then i stop and dont leave an x
+     * -if piece is opposite colored and not the king, i stop and leave an x
+     * -if opponent king is threatened change game state to check
+     * 
+     * checking pawn moves
+     * -two diagonals in front
+     * 
+     * queen
+     * -row, column and diagonals
+     * 
+     * rook
+     * -row and column
+     * 
+     * bishop
+     * -diagonals
+     * 
+     * king
+     * -one move in every direction
+     * 
+     * 
+     */
+
     for(let i = 0 ; i <= 7 ; i++){
         for(let j = 0 ; j <= 7 ; j++){
             let piece = board[i][j]
             if(pieces.includes(piece)){
-                if(piece === 'wp' || piece === 'bp'){
-                    
-                }
+                if(piece === 'wp'){
+
+                }   
             }
         }
     }

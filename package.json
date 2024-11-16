@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "@chrisoakman/chessboardjs": "^1.0.0",
+    "chess.js": "^1.0.0-beta.8",
+    "express": "^4.19.2",
+    "jquery": "^3.7.1",
     "ws": "^8.18.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "globals": "^15.12.0"
   }
 }

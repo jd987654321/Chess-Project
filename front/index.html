@@ -31,6 +31,24 @@
     </script>
 
     <script>
+        
+        const socket = new WebSocket('ws://localhost:8080')
+
+        socket.addEventListener('open', () => {
+            console.log('connected')
+        })
+
+        socket.addEventListener('message', (event) => {
+            console.log(' message from socket has been recieved')
+        })
+
+        function msgSocket(msg){
+            socket.send(msg)
+        }
+
+    </script>
+
+    <script>
         // --- Begin Example JS --------------------------------------------------------
         // NOTE: this example uses the chess.js library:
         // https://github.com/jhlywa/chess.js
@@ -61,6 +79,9 @@
                 promotion: 'q' // NOTE: always promote to a queen for example simplicity
             })
 
+            console.log('source: ' + source)
+            console.log('target: ' + target)
+
             // illegal move
             if (move === null) return 'snapback'
 
@@ -71,7 +92,17 @@
         // for castling, en passant, pawn promotion
         function onSnapEnd () {
             board.position(game.fen())
+            let playerColor
+            if(game.turn() === 'w'){
+                playerColor = 'white'
+            }else{
+                playerColor = 'black'
+            }
+
+            msgSocket(`player ${playerColor}, move: ${game.pgn()}`)
         }   
+
+        
 
         function updateStatus () {
             var status = ''
@@ -115,20 +146,11 @@
             onDrop: onDrop,
             onSnapEnd: onSnapEnd
         }
+
         board = Chessboard('board1', config)
 
         updateStatus()
         // --- End Example JS ----------------------------------------------------------
     </script>
-
-    <!-- <script>
-        var config = {
-            position: 'start',
-            draggable: true,
-            dropOffBoard: 'snapback'
-            
-        }
-        var board1 = Chessboard('board1', config)
-     </script> -->
 </body>
 </html>

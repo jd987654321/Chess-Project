@@ -1,0 +1,59 @@
+*{
+    font-family: 'Inter', sans-serif;
+}
+
+.button-container{
+    border-radius: 20px;
+    border: black solid 3px;
+    width: 400px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.link{
+    border: black solid 2px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 15px 10px 15px;
+    width: 70%;
+}
+
+.join-msg{
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 20px;
+}
+
+.cancel-msg{
+    color: red;
+}
+
+.cancel-msg:hover{
+    text-decoration: underline;
+    color: darkred;
+    cursor: default;
+}
+
+img{
+    width: 35px;
+    margin-left: 10px;
+}
+
+img:hover{
+    background-color: gray;
+}
+
+
+
+.link-div{
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.link-div:hover{
+    
+}

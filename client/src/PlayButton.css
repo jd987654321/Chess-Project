@@ -5,12 +5,21 @@
 .button-container{
     border-radius: 20px;
     border: black solid 3px;
+    overflow: hidden;
     width: 400px;
     height: 250px;
+    transition: width 0.5s;
+    transition: height 0.5s;
+}
+
+.wrapper{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
+    transition: opacity 0.5s;
 }
 
 .link{
@@ -22,9 +31,20 @@
 }
 
 .join-msg{
+    white-space: nowrap;
     margin-left: 10%;
     margin-right: 10%;
     font-size: 20px;
+}
+
+.find-match-msg{
+    color: green;
+}
+
+.find-match-msg:hover{
+    text-decoration: underline;
+    color: darkgreen;
+    cursor: default;
 }
 
 .cancel-msg{

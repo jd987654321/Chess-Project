@@ -32,7 +32,7 @@ wss.on('connection', (ws) => {
 
     ws.on('message', (message) => {
         console.log(`message recieved: ${message}`)
-        console.log(' sent message back')
+        
     })
 
     ws.on('close', () => {

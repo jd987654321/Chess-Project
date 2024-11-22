@@ -3,9 +3,11 @@ import './PlayButton.css'
 import Clipboard from './assets/Clipboard.svg'
 import { v4 } from 'uuid'
 
-export default function PlayButton(props){
+export default function JoinButton(props){
     let [clicked, setClicked] = useState(false)
+    let [inputText, setInputText] = useState("")
 
+    //let {startConnection} = props
 
     return(
         //p, div, p will all only be rendered if clicked
@@ -24,7 +26,7 @@ export default function PlayButton(props){
                     <div style={{
                         opacity: clicked ? 0 : 1
                     }} className="wrapper">
-                        <p>Play</p>
+                        <p>Join Game</p>
                     </div>
                 
                 ) : (
@@ -32,11 +34,12 @@ export default function PlayButton(props){
                     <div style={{
                         opacity: clicked ? 1 : 0
                     }} className="wrapper">
-                    <p className="join-msg">The game will start when another <br/>player joins with this link!</p>
                     <div className="link-div">
-                    <input className="link" value={"http://localhost:5500/" + v4()}></input>
-                    <img src={Clipboard}/>
+                    <input text={inputText} onChange={(event) => {
+                        setInputText(event.target.value)
+                        }} className="link" ></input>
                     </div>
+                    <p /*onClick={() => {startConnection(inputText)}}*/ className="find-match-msg">Find match</p>
                     <p onClick={() => {setClicked(false)}} className="cancel-msg">Cancel match</p>
                     </div>
                 )

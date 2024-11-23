@@ -1,17 +1,34 @@
 import { io } from 'socket.io-client'
+import { Chess } from 'chess.js'
 
-export default function useSocket(url, gameId){
+export default function useSocket(url, setOpponentMove, setColor, game ,setGame){
     let socket;
 
-    function connect(){
-        socket = io("http://localhost:8080", {
-            query: {
-                gameId: gameId
-            }
+
+    function connect(gameId){
+        try{
+            socket = io("http://localhost:8080", {
+                query: {
+                    gameId: gameId
+                }
+            })
+        }catch(err){
+            console.log("failed to connects")
+        }
+        
+        socket.on('color', (color) => {
+            setColor(color)
         })
 
         socket.on("welcome", (message) => {
             console.log("Connected")
+        })
+
+        socket.on('opponentMove', (move) => {
+            console.log('move recieved')
+            console.log(`move from opponent`)
+            console.log(move)
+            setOpponentMove(move)
         })
 
         return true

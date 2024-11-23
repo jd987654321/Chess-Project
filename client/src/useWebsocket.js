@@ -1,4 +1,4 @@
-export default function useWebsocket(url ,gameId){
+export default function useWebsocket(url ,gameId, setOpponentMove){
     let ws;
 
     function connect(){

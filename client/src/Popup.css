@@ -1,0 +1,45 @@
+.pop-up-container{
+    position: absolute;
+    right: 0;
+    border: 2px solid black;
+    height: 200px;
+    width: 400px;
+    /* transform: translateX(100%); */
+}
+
+@keyframes slide-in {
+    from{
+        transform: translateX(100%)
+    }
+
+    to{
+        transform: translateX(0%)
+    }
+}
+
+@keyframes slide-out{
+    from{
+        transform: translateX(0%)
+    }
+
+    to{
+        transform: translateX(100%)
+    }
+}
+
+.options-container{
+    border: 2px solid black;
+    height: 50px;
+    width: 200px;
+    display: flex;
+    margin-top: 100px;
+}
+
+.option-div{
+    height: 100%;
+    width: 50px;
+}
+
+.option-div:hover{
+    background-color: grey;
+}

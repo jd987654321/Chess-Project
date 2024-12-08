@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client'
 import { Chess } from 'chess.js'
 
-export default function useSocket(url, setOpponentMove, setColor, game ,setGame){
+export default function useSocket(url, setOpponentMove, setColor, game ,setIsConnected, playerId){
     let socket;
 
 
@@ -9,12 +9,25 @@ export default function useSocket(url, setOpponentMove, setColor, game ,setGame)
         try{
             socket = io("http://localhost:8080", {
                 query: {
-                    gameId: gameId
-                }
+                    gameId: gameId,
+                    playerId, playerId
+                },
+                reconnection: true,
+                reconnectionAttempts: 5
             })
         }catch(err){
             console.log("failed to connects")
         }
+
+        socket.on('connect', () => {
+            console.log('socket connected')
+            setIsConnected(true)
+        })
+
+        socket.on('disconnect', () => {
+            console.log('socket disconnected')
+            setIsConnected(false)
+        })
         
         socket.on('color', (color) => {
             setColor(color)
@@ -52,8 +65,10 @@ export default function useSocket(url, setOpponentMove, setColor, game ,setGame)
     }
 
     function disconnect(){
-        socket.disconnect()
-        console.log("socket disconnected")
+        if(socket){
+            socket.disconnect()
+            console.log("socket disconnected")
+        }
     }
 
     return {

@@ -14,8 +14,6 @@ export default function ChessGame(props){
       if(opponentMove === null){
         return
       }
-  
-      
         console.log('Opponent move recieved')
         const gameCopy = new Chess(game.fen())
         console.log(gameCopy.moves())

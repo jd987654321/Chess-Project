@@ -2,13 +2,19 @@ import { useState, useEffect } from 'react'
 import './Popup.css'
 
 export default function Popup(props){
-    let { options, setResult, message} = props
+    let { setOptions, options, setResult, message} = props
     
+    const appear = {
+        transform: "translateX(0%)"
+    }
+
+    const disappear = {
+        transform: "translateX(100%)"
+    }
+
+    let [buttonState, setButtonState] = useState(appear)
     // useEffect(() => {
-    //     if("x" in options){
-    //         return
-    //     }
-    //     options.push("x")
+    //     options = [...options, 'x']
     //     console.log(options)
     // }, [])
     
@@ -18,24 +24,18 @@ export default function Popup(props){
     
     //component should prop up when a certain prop is changed
     //so this will only render due to some event asking for input
-    
-    const style = {
-        animation: 
-        `slide-in 2s linear,
-        slide-out 2s linear`,
-        animationDelay: `0s, 5s`
-    }
+
 
     return (
-        <div style={style} className='pop-up-container'>
+        <div style={buttonState} className='pop-up-container'>
             <p>{message}</p>
             <div className='options-container'>
-                {options.map((option, index) => {
+                {[...options, 'x'].map((option, index) => {
                     return(
                     <div key={index}
                     className='option-div'
                     onClick={() => {
-                        console.log(option)
+                        setButtonState(disappear)
                     }}>
                         {option}
                     </div>)

@@ -4,7 +4,8 @@
     border: 2px solid black;
     height: 200px;
     width: 400px;
-    /* transform: translateX(100%); */
+    transform: translateX(100%);
+    transition: transform 0.25s ease-in-out;
 }
 
 @keyframes slide-in {

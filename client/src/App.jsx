@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import "./App.css";
 import Popup from "./Popup";
 import JoinButton from "./JoinButton";
 import PlayButton from "./PlayButton";
@@ -8,12 +7,10 @@ import ChessGame from "./ChessGame";
 import { v4 } from "uuid";
 import useSocket from "./useSocket";
 import { Chess } from "chess.js";
+import SelectPage from "./pages/SelectPage";
+import NavBar from "./components/NavBar";
 
 export default function App() {
-  function thing() {
-    console.log("yeahyeah");
-  }
-
   let [game, setGame] = useState(new Chess());
   let [gameId, setGameId] = useState("");
   let [playerId, setPlayerId] = useState(v4());
@@ -35,6 +32,7 @@ export default function App() {
     )
   );
 
+  //checking if session storage works
   useEffect(() => {
     if (sessionStorage.getItem("playerId") !== null) {
       console.log("Id has already been set");
@@ -45,6 +43,7 @@ export default function App() {
     console.log("Id has been set");
   }, []);
 
+  //used to start the game
   useEffect(() => {
     if (startGame) {
       ws.connect(gameId);
@@ -69,78 +68,40 @@ export default function App() {
   };
 
   return (
-    <div className="background">
-      <Popup options={["yes", "no"]} message={"test"} />
-      {!startGame ? (
-        <>
-          <h1>Chess</h1>
-          <PlayButton id={gameId} />
-          <JoinButton
-            gameId={gameId}
-            setGameId={setGameId}
-            setStartGame={setStartGame}
-          />
-        </>
-      ) : (
-        <div>
-          <ChessGame {...ChessGameProps} />
-          <button
-            onClick={() => {
-              setStartGame(false);
-            }}
-          >
-            Back
-          </button>
-          {isConnected && (
-            <div className="option-buttons-container">
-              <button onClick={() => {}}>Surrender</button>
-              <button onClick={() => {}}>Offer Draw</button>
-            </div>
-          )}
-        </div>
-      )}
+    <div className="flex justify-evenly items-center w-screen h-screen bg-gray-300">
+      <NavBar />
+      <SelectPage />
     </div>
+    // <div className="background">
+    //   <Popup options={["yes", "no"]} message={"test"} />
+    //   {!startGame ? (
+    //     <>
+    //       <h1>Chess</h1>
+    //       <PlayButton id={gameId} />
+    //       <JoinButton
+    //         gameId={gameId}
+    //         setGameId={setGameId}
+    //         setStartGame={setStartGame}
+    //       />
+    //     </>
+    //   ) : (
+    //     <div>
+    //       <ChessGame {...ChessGameProps} />
+    //       <button
+    //         onClick={() => {
+    //           setStartGame(false);
+    //         }}
+    //       >
+    //         Back
+    //       </button>
+    //       {isConnected && (
+    //         <div className="option-buttons-container">
+    //           <button onClick={() => {}}>Surrender</button>
+    //           <button onClick={() => {}}>Offer Draw</button>
+    //         </div>
+    //       )}
+    //     </div>
+    //   )}
+    // </div>
   );
-  // function Home() {
-  //   return (
-  //     <div
-  //       style={{
-  //         width: "100px",
-  //         height: "100px",
-  //         backgroundColor: "purple",
-  //       }}
-  //     >
-  //       Home
-  //       <Link to="/">Back</Link>
-  //     </div>
-  //   );
-  // }
-
-  // function About() {
-  //   return (
-  //     <div
-  //       style={{
-  //         width: "100px",
-  //         height: "100px",
-  //         backgroundColor: "green",
-  //       }}
-  //     >
-  //       About
-  //       <Link to="/">Back</Link>
-  //     </div>
-  //   );
-  // }
-
-  // return (
-  //   <BrowserRouter>
-  //     <nav>
-  //       <Link to="/home">Home</Link>
-  //       <Link to="/about">About</Link>
-  //     </nav>
-  //     <Routes>
-  //       <Route path="/home" element={<Home />} />
-  //       <Route path="/about" element={<About />} />
-  //     </Routes>
-  //   </BrowserRouter>
-  // );
 }

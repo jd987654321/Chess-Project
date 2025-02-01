@@ -13,6 +13,7 @@ export default {
           to: { transform: "translateX(100%)" },
         },
       },
+      colors: {},
     },
   },
   plugins: [],

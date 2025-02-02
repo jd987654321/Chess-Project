@@ -9,7 +9,9 @@ export default function SelectButton(props) {
         setSelected(true);
         setOption(buttonOption);
       }}
-      className={`${option !== buttonOption && selected ? "translate-x-[-30%]" : ""} flex justify-center items-center w-[300px] border-black border-[3px] rounded-[10px]`}
+      className={`${
+        option !== buttonOption && selected ? "translate-x-[-30%]" : ""
+      } flex justify-center items-center w-[300px] h-[50px] border-black border-[3px] rounded-[10px] transition-transform duration-250`}
     >
       {text}
     </div>

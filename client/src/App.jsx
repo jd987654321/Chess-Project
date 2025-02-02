@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import Popup from "./Popup";
 import JoinButton from "./JoinButton";
 import PlayButton from "./PlayButton";
@@ -9,6 +15,7 @@ import useSocket from "./useSocket";
 import { Chess } from "chess.js";
 import SelectPage from "./pages/SelectPage";
 import NavBar from "./components/NavBar";
+import MatchPage from "./pages/MatchPage";
 
 export default function App() {
   let [game, setGame] = useState(new Chess());
@@ -68,40 +75,15 @@ export default function App() {
   };
 
   return (
-    <div className="flex justify-evenly items-center w-screen h-screen bg-gray-300">
-      <NavBar />
-      <SelectPage />
-    </div>
-    // <div className="background">
-    //   <Popup options={["yes", "no"]} message={"test"} />
-    //   {!startGame ? (
-    //     <>
-    //       <h1>Chess</h1>
-    //       <PlayButton id={gameId} />
-    //       <JoinButton
-    //         gameId={gameId}
-    //         setGameId={setGameId}
-    //         setStartGame={setStartGame}
-    //       />
-    //     </>
-    //   ) : (
-    //     <div>
-    //       <ChessGame {...ChessGameProps} />
-    //       <button
-    //         onClick={() => {
-    //           setStartGame(false);
-    //         }}
-    //       >
-    //         Back
-    //       </button>
-    //       {isConnected && (
-    //         <div className="option-buttons-container">
-    //           <button onClick={() => {}}>Surrender</button>
-    //           <button onClick={() => {}}>Offer Draw</button>
-    //         </div>
-    //       )}
-    //     </div>
-    //   )}
-    // </div>
+    <BrowserRouter>
+      <div className="w-screen h-screen bg-gray-300">
+        <NavBar />
+
+        <Routes>
+          <Route path="/" element={<SelectPage />} />
+          <Route path="/Match" element={<MatchPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }

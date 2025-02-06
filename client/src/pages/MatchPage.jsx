@@ -1,4 +1,6 @@
 import { useState } from "react";
+import whitePawn from "../assets/whitePawn.svg";
+import blackPawn from "../assets/blackPawn.svg";
 
 export default function MatchPage(props) {
   const matches = [
@@ -26,6 +28,7 @@ export default function MatchPage(props) {
   ];
 
   function MatchItem(proppy) {
+    const { color } = proppy;
     function ItemBlock(texts) {
       const { text } = texts;
       return <div className="flex items-center">{text}</div>;
@@ -34,7 +37,10 @@ export default function MatchPage(props) {
     return (
       <div className="border-[1px] border-black px-[30px] flex justify-between w-full h-[50px]">
         <ItemBlock text="result" />
-        <ItemBlock text="opponent" />
+        <div className="flex">
+          <img src={color === "white" ? whitePawn : blackPawn} />
+          <ItemBlock text="opponent" />
+        </div>
         <ItemBlock text="gameType" />
         <ItemBlock text="gameMode" />
         <ItemBlock text="date" />
@@ -46,7 +52,7 @@ export default function MatchPage(props) {
     <div className="flex justify-center items-center h-screen w-screen">
       <div className="w-[80%] h-[80%] bg-red-200 flex flex-col justify-between">
         <div className="text-black border-b-2 border-black">Matches</div>
-        <div className="bg-green-400 flex flex-col flex-1 gap-[10px]">
+        <div className="bg-green-400 flex flex-col flex-1 gap-[30px]">
           <MatchItem />
           <MatchItem />
           <MatchItem />

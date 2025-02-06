@@ -29,14 +29,21 @@ export default function NavBar(props) {
           className={`fixed w-[30%] h-screen bg-red-300 z-[30] top-0 right-0 transition-transform duration-250 ${!clicked ? "translate-x-full" : ""}`}
         >
           <div className="relative top-[50px] left-[20px]">
-            <div className="">Profile</div>
+            <div onClick={setClickedFalse}>
+              <Link to="/Profile">Profile</Link>
+            </div>
             <div onClick={setClickedFalse} className="">
               <Link to="/">Play</Link>
             </div>
             <div onClick={setClickedFalse} className="">
               <Link to="/Match">Matches</Link>
             </div>
-            <div className="">About the Website</div>
+            <div onClick={setClickedFalse}>
+              <Link to="/About">About the Website</Link>
+            </div>
+            <div onClick={setClickedFalse}>
+              <Link to="/Login">Login</Link>
+            </div>
           </div>
         </div>
         <div>

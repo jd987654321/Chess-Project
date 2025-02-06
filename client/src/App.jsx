@@ -13,9 +13,14 @@ import ChessGame from "./ChessGame";
 import { v4 } from "uuid";
 import useSocket from "./useSocket";
 import { Chess } from "chess.js";
-import SelectPage from "./pages/SelectPage";
+
 import NavBar from "./components/NavBar";
+
+import SelectPage from "./pages/SelectPage";
 import MatchPage from "./pages/MatchPage";
+import ProfilePage from "./pages/ProfilePage";
+import AboutPage from "./pages/AboutPage";
+import LoginPage from "./pages/LoginPage";
 
 export default function App() {
   let [game, setGame] = useState(new Chess());
@@ -82,6 +87,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SelectPage />} />
           <Route path="/Match" element={<MatchPage />} />
+          <Route path="/Profile" element={<ProfilePage />} />
+          <Route path="/About" element={<AboutPage />} />
+          <Route path="/Login" element={<LoginPage />} />
         </Routes>
       </div>
     </BrowserRouter>

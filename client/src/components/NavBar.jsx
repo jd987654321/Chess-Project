@@ -30,6 +30,9 @@ export default function NavBar(props) {
         >
           <div className="relative top-[50px] left-[20px]">
             <div onClick={setClickedFalse}>
+              <Link to="/Game">Game Test</Link>
+            </div>
+            <div onClick={setClickedFalse}>
               <Link to="/Profile">Profile</Link>
             </div>
             <div onClick={setClickedFalse} className="">

@@ -67,18 +67,25 @@ export default function ChessGame(props) {
   }
 
   return (
-    <>
-      {isConnected ? (
-        <Chessboard
-          boardOrientation={color}
-          position={game.fen()}
-          onPieceDrop={printMove}
-          boardWidth="400"
-          boardHeight="400"
-        />
-      ) : (
-        <p>Waiting for other player...</p>
-      )}
-    </>
+    <Chessboard
+      boardOrientation={color}
+      position={game.fen()}
+      onPieceDrop={printMove}
+      boardWidth="400"
+      boardHeight="400"
+    />
+    // <>
+    //   {isConnected ? (
+    //     <Chessboard
+    //       boardOrientation={color}
+    //       position={game.fen()}
+    //       onPieceDrop={printMove}
+    //       boardWidth="400"
+    //       boardHeight="400"
+    //     />
+    //   ) : (
+    //     <p>Waiting for other player...</p>
+    //   )}
+    // </>
   );
 }

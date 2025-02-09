@@ -1,15 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-} from "react-router-dom";
-import Popup from "./Popup";
-import JoinButton from "./JoinButton";
-import PlayButton from "./PlayButton";
-import ChessGame from "./ChessGame";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { v4 } from "uuid";
 import useSocket from "./useSocket";
 import { Chess } from "chess.js";
@@ -21,6 +11,7 @@ import MatchPage from "./pages/MatchPage";
 import ProfilePage from "./pages/ProfilePage";
 import AboutPage from "./pages/AboutPage";
 import LoginPage from "./pages/LoginPage";
+import GamePage from "./pages/GamePage";
 
 export default function App() {
   let [game, setGame] = useState(new Chess());
@@ -86,6 +77,7 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<SelectPage />} />
+          <Route path="/Game" element={<GamePage {...{ ChessGameProps }} />} />
           <Route path="/Match" element={<MatchPage />} />
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/About" element={<AboutPage />} />

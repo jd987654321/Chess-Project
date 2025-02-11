@@ -71,8 +71,8 @@ export default function ChessGame(props) {
       boardOrientation={color}
       position={game.fen()}
       onPieceDrop={printMove}
-      boardWidth="400"
-      boardHeight="400"
+      boardWidth="500"
+      boardHeight="500"
     />
     // <>
     //   {isConnected ? (

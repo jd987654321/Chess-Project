@@ -72,7 +72,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className="w-screen h-screen bg-gray-300">
+      <div className="w-screen h-screen bg-background">
         <NavBar />
 
         <Routes>
